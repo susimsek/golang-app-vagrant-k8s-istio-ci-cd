@@ -1,0 +1,16 @@
+{{- if and .Values.istio.gateway.tls.enabled .Values.istio.gateway.tls.acme.enabled }}
+apiVersion: {{ .Values.istio.gateway.tls.acme.certManager.version }}
+kind: Certificate
+metadata:
+  name: {{ template "app.shortname" . }}
+  namespace: {{ .Values.istio.gateway.tls.gatewayNamespace }}
+spec:
+  secretName: {{ .Values.istio.gateway.tls.secretName }}
+  renewBefore: {{ .Values.istio.gateway.tls.acme.renewBefore }}
+  commonName: {{ .Values.istio.gateway.hostname }}
+  dnsNames:
+    - {{ .Values.istio.gateway.hostname }}
+  issuerRef:
+    name: {{ .Values.istio.gateway.tls.acme.issuerName }}
+    kind: {{ .Values.istio.gateway.tls.acme.issuerKind }}
+  {{- end }}

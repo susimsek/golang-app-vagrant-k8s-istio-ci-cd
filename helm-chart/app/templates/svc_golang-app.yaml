@@ -1,0 +1,26 @@
+# Defines the service for the golangapp transformer app
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "app.shortname" . }}-golangapp
+  labels:
+  {{- include "golangapp.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.golangapp.service.type }}
+  {{- if and (eq .Values.golangapp.service.type "LoadBalancer") .Values.golangapp.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.golangapp.service.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.golangapp.service.type "ClusterIP") .Values.golangapp.service.clusterIP }}
+  clusterIP: {{ .Values.golangapp.service.clusterIP }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.golangapp.service.port }}
+      targetPort: http
+      {{- if and (or (eq .Values.golangapp.service.type "NodePort") (eq .Values.golangapp.service.type "LoadBalancer")) .Values.golangapp.service.nodePort }}
+      nodePort: {{ .Values.golangapp.service.nodePort }}
+      {{- else if eq .Values.golangapp.service.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+      name: http
+  selector:
+  {{- include "golangapp.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,28 @@
+{{- if .Values.golangapp.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "app.shortname" . }}-golangapp
+  labels:
+  {{- include "golangapp.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "app.shortname" . }}-golangapp
+  minReplicas: {{ .Values.golangapp.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.golangapp.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.golangapp.autoscaling.targetCPU }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.golangapp.autoscaling.targetCPU }}
+    {{- end }}
+    {{- if .Values.golangapp.autoscaling.targetMemory }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.golangapp.autoscaling.targetMemory  }}
+  {{- end }}
+  {{- end }}

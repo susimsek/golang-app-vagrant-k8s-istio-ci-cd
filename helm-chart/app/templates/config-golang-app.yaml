@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "app.shortname" . }}-golangapp-configmap
+  labels:
+  {{- include "golangapp.labels" . | nindent 4 }}
+data:
+  # The JAVA_OPTS defined in the values.yaml file for the "golangapp" are set here using proper quotes
+  {{- if .Values.golangapp.environment }}
+  {{- range $key, $val := .Values.golangapp.environment }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  TZ: "Europe/Istanbul"
+  SERVER_PORT: "9000"

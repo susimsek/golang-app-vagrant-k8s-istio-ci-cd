@@ -1,0 +1,29 @@
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ template "app.shortname" . }}-gateway
+spec:
+  selector:
+    istio: {{ .Values.istio.gateway.selector }}
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+      - {{ .Values.istio.gateway.hostname }}
+      tls:
+        httpsRedirect: {{ .Values.istio.gateway.httpsRedirect }}
+    {{- if .Values.istio.gateway.tls.enabled }}
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+      - {{ .Values.istio.gateway.hostname }}
+      tls:
+        mode: SIMPLE
+        credentialName: {{ .Values.istio.gateway.tls.secretName }}
+  {{- end }}
+  {{- end }}

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: pod
+spec:
+  serviceAccount: jenkins
+  containers:
+    - name: golang
+      image: golang:1.16-buster
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: gomodules
+          mountPath: /go/pkg/mod
+    - name: docker
+      image: docker:20.10
+      command:
+        - cat
+      tty: true
+      privileged: true
+      volumeMounts:
+        - name: dockersock
+          mountPath: /var/run/docker.sock
+    - name: kubectl
+      image: lachlanevenson/k8s-kubectl:v1.19.9
+      command:
+        - cat
+      tty: true
+    - name: helm
+      image: lachlanevenson/k8s-helm:v3.4.2
+      command:
+        - cat
+      tty: true
+  volumes:
+    - name: dockersock
+      hostPath:
+        path: /var/run/docker.sock
+    - name: gomodules
+      hostPath:
+        path: /go/pkg/mod
