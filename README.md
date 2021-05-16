@@ -79,7 +79,7 @@ docker-compose up -d
 
 You can access the Playground from the following url.
 
-http://192.168.12.11:9000/playground
+http://app.info/playground
 
 ## Installation Using Vagrant for Kubernetes Deployment
 
