@@ -19,7 +19,7 @@ BOX_BASE = "ubuntu/focal64"
 # set servers list and their parameters
 	NODES = [
   	# { :hostname => "haproxy", :ip => "192.168.12.10", :cpus => 1, :mem => 512, :type => "haproxy" },
-  	{ :hostname => "k8smaster", :ip => "192.168.12.11", :cpus => 3, :mem => 5096, :type => "k8s" }
+  	{ :hostname => "k8smaster", :ip => "192.168.12.11", :cpus => 3, :mem => 3096, :type => "k8s" }
   	# { :hostname => "k8snode1", :ip => "192.168.12.12", :cpus => 2, :mem => 2048, :type => "k8s" }
 	]
 

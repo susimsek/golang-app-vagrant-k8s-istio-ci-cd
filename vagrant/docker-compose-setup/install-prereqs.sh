@@ -1,6 +1,7 @@
 #!/bin/bash
 
 JENKINS_ENABLED=true
+SONARQUBE_ENABLED=true
 
 # DO NOT Execute this script with sudo
 if [ $SUDO_USER ]; then
@@ -16,6 +17,12 @@ then
 echo
 echo "## Jenkins"
 ./install_jenkins.sh
+fi
+if [ "$SONARQUBE_ENABLED" == true ]
+then
+echo
+echo "## Sonarqube"
+sudo ./install_sonarqube.sh
 fi
 
 echo "====== Please Logout & Logback in ======"
