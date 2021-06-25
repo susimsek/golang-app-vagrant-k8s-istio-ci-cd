@@ -117,7 +117,7 @@ COUNT=1
 RETRY_COUNT=$((TIME_OUT / INTERVAL))
 
 while true; do
-    http_status=$( request_change_password_api )
+    http_status=$(request_change_password_api)
     if [[ "$http_status" -eq 204 ]] || [[ "$http_status" -eq 401 ]]; then
         break
     fi
