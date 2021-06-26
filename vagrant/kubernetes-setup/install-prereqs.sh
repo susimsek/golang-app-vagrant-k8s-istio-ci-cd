@@ -1,8 +1,9 @@
 #!/bin/bash
 
-KUBERNETES_DASHBOARD_ENABLED=true
-JENKINS_ENABLED=true
-ISTIO_ENABLED=true
+KUBERNETES_DASHBOARD_ENABLED=false
+JENKINS_ENABLED=false
+SONARQUBE_ENABLED=true
+ISTIO_ENABLED=false
 
 # DO NOT Execute this script with sudo
 if [ $SUDO_USER ]; then
@@ -31,6 +32,12 @@ then
 echo
 echo "## Jenkins"
 ./install_jenkins.sh
+fi
+if [ "$SONARQUBE_ENABLED" == true ]
+then
+echo
+echo "## Sonarqube"
+./install_sonarqube.sh
 fi
 
 echo "====== Please Logout & Logback in ======"

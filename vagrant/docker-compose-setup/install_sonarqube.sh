@@ -59,6 +59,8 @@ services:
       - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
       - SONAR_JDBC_USERNAME=${POSTGRESQL_USER}
       - SONAR_JDBC_PASSWORD=${POSTGRESQL_PASSWORD}
+      - sonar.forceAuthentication=true
+      - sonar.web.context=${URL_PREFIX}
     volumes:
       - sonarqube_conf:/opt/sonarqube/conf
       - sonarqube_data:/opt/sonarqube/data
@@ -133,14 +135,14 @@ done
 request_change_password_api(){
      http_status=$(curl -i -o - --silent \
     -X POST -u ${ADMIN_USER}:admin \
-    "http://localhost:$SONARQUBE_PORT/api/users/change_password?login=$ADMIN_USER&previousPassword=admin&password=$ADMIN_PASSWORD" \
+    "http://localhost:$SONARQUBE_PORT$URL_PREFIX/api/users/change_password?login=$ADMIN_USER&previousPassword=admin&password=$ADMIN_PASSWORD" \
     | grep HTTP |  awk '{print $2}')
     echo "$http_status"
 }
 
 
 install_sonarqube(){
- docker-compose -f $HOME_PATH/sonarqube/docker-compose.yaml up -d
+ docker-compose -f $HOME_PATH/sonarqube/docker-compose.yaml up -
 }
 
 
