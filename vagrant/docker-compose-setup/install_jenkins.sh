@@ -126,6 +126,7 @@ blueocean:1.24.6
 kubernetes-cd:2.3.1
 docker-workflow:1.26
 matrix-auth:2.6.6
+sonar:2.13.1
 "> $HOME/jenkins/plugins.txt
 }
 
