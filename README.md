@@ -91,7 +91,7 @@ http://sonarqube.info/sonarqube
 
 ## Installation Using Vagrant for Kubernetes Deployment
 
-<img src="https://github.com/susimsek/golang-app-vagrant-k8s-istio-ci-cd/blob/main/images/vagrant-k8s-installation.png" alt="Golang Vagrant Kubernetes Installation" width="100%" height="100%"/> 
+<img src="https://github.com/susimsek/golang-app-vagrant-k8s-istio-ci-cd/blob/main/images/vagrant-k8s-installation.png?v=1" alt="Golang Vagrant Kubernetes Installation" width="100%" height="100%"/> 
 
 ### Prerequisites for Kubernetes Deployment
 
