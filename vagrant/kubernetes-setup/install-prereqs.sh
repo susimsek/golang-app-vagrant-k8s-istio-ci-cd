@@ -1,9 +1,10 @@
 #!/bin/bash
 
-KUBERNETES_DASHBOARD_ENABLED=true
-JENKINS_ENABLED=true
-SONARQUBE_ENABLED=true
-ISTIO_ENABLED=true
+KUBERNETES_DASHBOARD_ENABLED=false
+CERT_MANAGER_ENABLED=true
+JENKINS_ENABLED=false
+SONARQUBE_ENABLED=false
+ISTIO_ENABLED=false
 
 # DO NOT Execute this script with sudo
 if [ $SUDO_USER ]; then
@@ -20,6 +21,12 @@ then
 echo
 echo "## Kubernetes Dashboard"
 ./install_k8s_dashboard.sh
+fi
+if [ "$CERT_MANAGER_ENABLED" == true ]
+then
+echo
+echo "## Cert Manager"
+./install_cert_manager.sh
 fi
 if [ "$ISTIO_ENABLED" == true ]
 then
