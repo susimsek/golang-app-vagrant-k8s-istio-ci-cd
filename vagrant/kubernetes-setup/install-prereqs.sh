@@ -1,9 +1,9 @@
 #!/bin/bash
 
-KUBERNETES_DASHBOARD_ENABLED=false
-JENKINS_ENABLED=false
+KUBERNETES_DASHBOARD_ENABLED=true
+JENKINS_ENABLED=true
 SONARQUBE_ENABLED=true
-ISTIO_ENABLED=false
+ISTIO_ENABLED=true
 
 # DO NOT Execute this script with sudo
 if [ $SUDO_USER ]; then
