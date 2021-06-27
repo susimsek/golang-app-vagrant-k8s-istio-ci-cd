@@ -146,6 +146,14 @@ You can access the Sonarqube from the following url.
 
 http://sonarqube.info/sonarqube
 
+You can access the Kubernetes Dashboard from the following url.
+
+https://kubernetes-dashboard.info
+
+You can access the Rancher from the following url.
+
+https://rancher.info
+
 ## Golang App Used Technologies
 
 * Golang 1.16.3
