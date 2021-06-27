@@ -81,6 +81,14 @@ You can access the Playground from the following url.
 
 http://app.info/playground
 
+You can access the Jenkins from the following url.
+
+http://jenkins.info/jenkins
+
+You can access the Sonarqube from the following url.
+
+http://sonarqube.info/sonarqube
+
 ## Installation Using Vagrant for Kubernetes Deployment
 
 <img src="https://github.com/susimsek/golang-app-vagrant-k8s-istio-ci-cd/blob/main/images/vagrant-k8s-installation.png" alt="Golang Vagrant Kubernetes Installation" width="100%" height="100%"/> 
@@ -129,6 +137,14 @@ helm install app helm-chart/app
 You can access the Playground from the following url.
 
 http://app.info/playground
+
+You can access the Jenkins from the following url.
+
+http://jenkins.info/jenkins
+
+You can access the Sonarqube from the following url.
+
+http://sonarqube.info/sonarqube
 
 ## Golang App Used Technologies
 
