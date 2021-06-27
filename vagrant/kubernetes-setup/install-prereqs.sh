@@ -5,6 +5,7 @@ CERT_MANAGER_ENABLED=true
 JENKINS_ENABLED=true
 SONARQUBE_ENABLED=true
 ISTIO_ENABLED=true
+RANCHER_ENABLED=true
 
 # DO NOT Execute this script with sudo
 if [ $SUDO_USER ]; then
@@ -45,6 +46,12 @@ then
 echo
 echo "## Sonarqube"
 ./install_sonarqube.sh
+fi
+if [ "$RANCHER_ENABLED" == true ]
+then
+echo
+echo "## Sonarqube"
+./install_rancher.sh
 fi
 
 echo "====== Please Logout & Logback in ======"
