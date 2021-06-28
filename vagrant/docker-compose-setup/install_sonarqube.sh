@@ -142,7 +142,7 @@ request_change_password_api(){
 
 
 install_sonarqube(){
- docker-compose -f $HOME_PATH/sonarqube/docker-compose.yaml up -
+ docker-compose -f $HOME_PATH/sonarqube/docker-compose.yaml up -d
 }
 
 
