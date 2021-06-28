@@ -113,7 +113,7 @@ change_admin_password(){
 echo "Create Admin User"
 
 WARMING_TIME=20
-TIME_OUT=60
+TIME_OUT=100
 INTERVAL=5
 COUNT=1
 RETRY_COUNT=$((TIME_OUT / INTERVAL))
