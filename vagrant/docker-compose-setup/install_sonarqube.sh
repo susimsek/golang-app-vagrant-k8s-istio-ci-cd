@@ -135,7 +135,7 @@ done
 request_change_password_api(){
      http_status=$(curl -i -o - --silent \
     -X POST -u ${ADMIN_USER}:admin \
-    "http://localhost:$SONARQUBE_PORT$URL_PREFIX/api/users/change_password?login=$ADMIN_USER&previousPassword=admin&password=$ADMIN_PASSWORD" \
+    "http://localhost:${SONARQUBE_PORT}${URL_PREFIX}/api/users/change_password?login=$ADMIN_USER&previousPassword=admin&password=$ADMIN_PASSWORD" \
     | grep HTTP |  awk '{print $2}')
     echo "$http_status"
 }
