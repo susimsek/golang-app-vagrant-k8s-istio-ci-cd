@@ -12,6 +12,8 @@ METALLB_ENABLED=true
 METALLB_IP_RANGE=192.168.12.240-192.168.12.250
 NGINX_INGRESS_ENABLED=true
 HAPROXY_ENABLED=false
+WEAVE_ENABLED=true
+ANONYMOUS_AUTH_ENABLED=false
 
 # Functions ########################################
 
@@ -109,6 +111,25 @@ sed -i s/"#   address: 1.2.3.4"/"  address: ${IP_HAPROXY}"/g inventory/mykub/gro
 sed -i s/"#   port: 1234"/"  port: 6443"/g inventory/mykub/group_vars/all/all.yml
 fi
 
+if [ "$WEAVE_ENABLED" == true ]
+then
+echo
+echo "## Weave CNI"
+sed -i s/"kube_network_plugin: calico"/"kube_network_plugin: weave"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
+export WEAVE_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
+sed -i s/"# weave_password: ~"/"weave_password: $WEAVE_PASSWORD"/g inventory/mykub/group_vars/k8s-cluster/k8s-net-weave.yml
+fi
+
+if [ "$ANONYMOUS_AUTH_ENABLED" == false ]
+then
+echo
+echo "## Basic auth and token auth enabled"
+sed -i s/"kube_api_anonymous_auth: true"/"kube_api_anonymous_auth: false"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
+sed -i s/"# kube_basic_auth: false"/"kube_basic_auth: true"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
+sed -i s/"# kube_token_auth: false"/"kube_token_auth: true"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
+sed -i s/"# kube_apiserver_insecure_port:"/"kube_apiserver_insecure_port:"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
+sed -i s/"kube_apiserver_insecure_port: 0"/"#kube_apiserver_insecure_port: 0"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
+fi
 }
 
 create_ssh_for_kubespray(){
