@@ -50,7 +50,7 @@ fi
 if [ "$RANCHER_ENABLED" == true ]
 then
 echo
-echo "## Sonarqube"
+echo "## Rancher"
 ./install_rancher.sh
 fi
 
