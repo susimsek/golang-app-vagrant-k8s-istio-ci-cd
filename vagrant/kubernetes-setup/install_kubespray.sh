@@ -12,8 +12,8 @@ METALLB_ENABLED=true
 METALLB_IP_RANGE=192.168.12.240-192.168.12.250
 NGINX_INGRESS_ENABLED=true
 HAPROXY_ENABLED=false
-WEAVE_ENABLED=false
-ANONYMOUS_AUTH_ENABLED=true
+WEAVE_ENABLED=true
+AUTH_ENABLED=true
 
 # Functions ########################################
 
@@ -120,15 +120,12 @@ export WEAVE_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
 sed -i s/"# weave_password: ~"/"weave_password: $WEAVE_PASSWORD"/g inventory/mykub/group_vars/k8s-cluster/k8s-net-weave.yml
 fi
 
-if [ "$ANONYMOUS_AUTH_ENABLED" == false ]
+if [ "$AUTH_ENABLED" == true ]
 then
 echo
 echo "## Basic auth and token auth enabled"
-sed -i s/"kube_api_anonymous_auth: true"/"kube_api_anonymous_auth: false"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
 sed -i s/"# kube_basic_auth: false"/"kube_basic_auth: true"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
 sed -i s/"# kube_token_auth: false"/"kube_token_auth: true"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
-sed -i s/"# kube_apiserver_insecure_port:"/"kube_apiserver_insecure_port:"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
-sed -i s/"kube_apiserver_insecure_port: 0"/"#kube_apiserver_insecure_port: 0"/g inventory/mykub/group_vars/k8s-cluster/k8s-cluster.yml
 fi
 }
 
@@ -160,13 +157,17 @@ sudo usermod -aG docker $USER
 
 enable_kubectl_autocompletion(){
 echo 'source <(kubectl completion bash)' >>~/.bashrc
-kubectl completion bash |sudo tee /etc/bash_completion.d/kubectl
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl
 echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
+echo
+echo "## kubectl auto completion enabled"
 }
 
 enable_helm_autocompletion(){
 echo 'source <(helm completion bash)' >>~/.bashrc
+echo
+echo "## helm auto completion enabled"
 }
 
 # Let's Go!! ########################################
@@ -180,3 +181,4 @@ then
 echo
 enable_helm_autocompletion
 fi
+source ~/.bashrc
