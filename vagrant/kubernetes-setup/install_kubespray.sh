@@ -181,4 +181,3 @@ then
 echo
 enable_helm_autocompletion
 fi
-source ~/.bashrc
